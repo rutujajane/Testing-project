@@ -1,0 +1,54 @@
+package com.utils;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+public class ReadHExcel{
+	static String path = "D:\\Automation\\webdriver\\Framework1\\src\\test\\resources\\testdata\\H_data.xlsx";
+
+	public static Object[][] getexceldata(String sheetname) throws EncryptedDocumentException, IOException {
+		FileInputStream fis = new FileInputStream(path);
+
+		Workbook book = WorkbookFactory.create(fis);
+		Sheet sh = book.getSheet(sheetname);
+
+		int row = sh.getLastRowNum();
+		Row rowcell = sh.getRow(0);
+		int coloum = rowcell.getLastCellNum();
+
+		// System.out.println(row);
+		 //System.out.println(coloum);
+
+		DataFormatter formater = new DataFormatter();
+		String testdata[][] = new String[row][coloum];
+
+		for (int i = 1; i <= row; i++) {
+			
+			for (int j = 0; j < coloum; j++) {
+				
+				testdata[i - 1][j] = formater.formatCellValue(sh.getRow(i).getCell(j));
+				//System.out.println(testdata[i - 1][j]);
+			}
+		}
+		return testdata;
+		
+	}
+
+	public static void main(String[] args) throws Exception, IOException  {
+		//ReadrediffExcel excel = new ReadrediffExcel();
+		ReadrediffExcel.getexceldata("sheetname");
+	}
+
+}
+
+
+
+
+	

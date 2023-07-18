@@ -1,0 +1,26 @@
+package com.testcases;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.rediff.basepage.H_Basepage;
+import com.rediff.pageobject.PO_applicationpage;
+
+public class TC_applicationpage extends H_Basepage
+{
+	@BeforeMethod
+	public void init() throws Exception {
+		initialization();
+	}
+	@Test
+	public void varifyapplicationpage() {
+		PO_applicationpage pg = new PO_applicationpage(driver) ;
+		pg.clickapplybutton();
+	}
+	@AfterMethod
+	 public void teardown() {
+		  driver.close();
+	  }
+
+}
